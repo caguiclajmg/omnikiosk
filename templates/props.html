@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+
+{% set title = 'OmniKiosk - Print Settings' %}
+
+{% block main %}
+<form style="margin-top: 10%; margin-left: 35%; margin-right: 35%" action="{{ url_for('props') }}" method="post">
+    <div class="form-group">
+        <label>Preview</label>
+        <div id="preview_carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-inner">
+                {% for img in images %}
+                <div class="carousel-item {{ 'active' if loop.index == 1 else '' }}">
+                    <img class="d-block w-100" src="data:image/jpeg;base64, {{ img['FileData'] }}">
+                    <small class="text-muted" style="display:block; text-align:center;">Page {{ loop.index }} of {{ images|count }}</small>
+                </div>
+                {% endfor %}
+            </div>
+            <a style="background: rgba(0, 0, 0, 0.25); margin-left:-4em;" class="carousel-control-prev" href="#preview_carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a style="background: rgba(0, 0, 0, 0.25); margin-right:-4em;" class="carousel-control-next" href="#preview_carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Pages</label>
+        <input type="text" class="form-control" name="props_pages" placeholder="">
+        <small class="form-text text-muted">Specify individual pages using commas or ranges using dashes, leave blank to print the whole document.</small>
+        <small class="form-text text-muted">Examples:</small>
+        <small class="form-text text-muted" style="margin-left: 15%;">Pages 1, 4 & 9 <em>"1, 4, 9"</em></small>
+        <small class="form-text text-muted" style="margin-left: 15%;">Pages 1-10 <em>"1-10"</em></small>
+        <small class="form-text text-muted" style="margin-left: 15%;">Pages 1-3, page 4 and pages 5-9: <em>"1-3, 4, 5-9"</em></small>
+    </div>
+
+    <div class="form-group">
+        <label style="display: block;">Color</label>
+        <input type="hidden" name="props_color" id="txt_color" value="grayscale">
+        <label class="btn btn-success form-check form-check-inline" id="btn_grayscale">Grayscale</label>
+        <label class="btn btn-secondary form-check form-check-inline" id="btn_color">Color</label>
+    </div>
+
+    <div class="form-group">
+        <label>Copies</label>
+        <input type="number" class="form-control" name="props_copies" value="1">
+        <small class="form-text text-muted">Indicate the number of copies to be printed</small>
+    </div>
+
+    <div class="form-group" style="text-align:center;">
+        <button type="submit" class="btn btn-primary" style="margin-top:2em;">Proceed</button>
+    </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('#btn_grayscale').on('click', function() {
+        $('#txt_color').val('grayscale');
+
+        $('#btn_grayscale').removeClass('btn-secondary');
+        $('#btn_grayscale').addClass('btn-success');
+        $('#btn_color').removeClass('btn-success');
+        $('#btn_color').addClass('btn-secondary');
+    });
+    $('#btn_color').on('click', function() {
+        $('#txt_color').val('color');
+
+        $('#btn_grayscale').removeClass('btn-success');
+        $('#btn_grayscale').addClass('btn-secondary');
+        $('#btn_color').removeClass('btn-secondary');
+        $('#btn_color').addClass('btn-success');
+    });
+</script>
+{% endblock %}

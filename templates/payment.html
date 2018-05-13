@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% set title = 'OmniKiosk - Payment' %}
+
+{% block main %}
+<form style="margin-top: 10%; margin-left: 25%; margin-right: 25%" method="post" action="{{ url_for('payment') }}">
+    <div class="form-group">
+        <div style="margin-bottom:2em;">Amount to pay: <span style="font-size: 1.3em; font-weight:bolder;">Php {{ amount }}</span></span></div>
+    </div>
+    <div class="form-group">
+        <label style="display: block;">Payment Method</label>
+        <input type="hidden" id="txt_payment" name="payment_method" value="globe_prepaid">
+
+        <div style="width:8em; height:3em;" class="btn btn-outline-success form-check form-check-inline" id="btn_globeprepaid">
+            <img style="max-height:100%; max-width: 100%;" src="{{ url_for('static', filename='images/globe.png') }}">
+        </div>
+        <div style="display:none; width:8em; height:3em;" class="btn form-check form-check-inline" id="btn_smartprepaid">
+            <img style="max-height:100%; max-width: 100%;" src="{{ url_for('static', filename='images/smart.png') }}">
+        </div>
+        <div style="width:8em; height:3em; text-align:center;" class="btn form-check form-check-inline" id="btn_cash">
+            <span>Cash</span>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <input class="btn btn-primary" type="submit" value="Proceed">
+    </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('#btn_globeprepaid').on('click', function() {
+        $('#txt_payment').val('globe_prepaid');
+
+        $('#btn_globeprepaid').removeClass('btn-outline-success');
+        $('#btn_smartprepaid').removeClass('btn-outline-success');
+        $('#btn_cash').removeClass('btn-outline-success');
+
+        $('#btn_globeprepaid').addClass('btn-outline-success');
+    });
+
+    $('#btn_smartprepaid').on('click', function() {
+        $('#txt_payment').val('smart_prepaid');
+
+        $('#btn_globeprepaid').removeClass('btn-outline-success');
+        $('#btn_smartprepaid').removeClass('btn-outline-success');
+        $('#btn_cash').removeClass('btn-outline-success');
+
+        $('#btn_smartprepaid').addClass('btn-outline-success');
+    });
+
+    $('#btn_cash').on('click', function() {
+        $('#txt_payment').val('cash');
+
+        $('#btn_globeprepaid').removeClass('btn-outline-success');
+        $('#btn_smartprepaid').removeClass('btn-outline-success');
+        $('#btn_cash').removeClass('btn-outline-success');
+
+        $('#btn_cash').addClass('btn-outline-success');
+    });
+
+</script>
+{% endblock %}

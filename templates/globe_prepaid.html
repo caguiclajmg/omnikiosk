@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% set title = 'OmniKiosk - Payment' %}
+
+{% block main %}
+<form style="margin-top: 10%; margin-left: 35%; margin-right: 35%" method="post" action="{{ url_for('globe_prepaid') }}">
+    <div class="form-group">
+        <label>Register with OmniKiosk</label>
+        <small style="margin-left: 2em; display:block;" class="form-text text-muted">On your mobile phone, send "YES" to 21581194</small>
+    </div>
+    <div class="form-group" style="margin-top:2em;">
+        <label>Mobile Number</label>
+        <input class="form-control" type="text" name="subscriber_number" placeholder="9151234567">
+        <small class="form-text text-muted">Type in your 10-digit mobile number</small>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Proceed">
+</div>
+{% endblock %}

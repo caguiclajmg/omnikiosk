@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% set title = 'OmniKiosk - Retrieve' %}
+
+{% block body %}
+<form action="/backend/retrieve" method="GET">
+    <input type="number" name="transaction_id">
+    <input type="submit">
+</form>
+{% endblock %}

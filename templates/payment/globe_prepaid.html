@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% set title = 'OmniKiosk - Payment' %}
+
+{% block main %}
+<div style="margin-top: 10%; margin-left: 25%; margin-right: 25%">
+    <form method="post" action="{{ url_for('payment/globe_prepaid') }}">
+        <input type="text" name="subscriber_number">
+        <input class="btn btn-primary" type="submit">
+    </form>
+</div>
+{% endblock %}
